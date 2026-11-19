@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <title>Pixbit Office 3D</title>
   <style>
     html, body { margin: 0; height: 100%; overflow: hidden; background: #111; font-family: system-ui, -apple-system, sans-serif; }
@@ -17,15 +17,20 @@
     .card h1 span { color: #ecc828; }
     .card p { margin: 6px 0 18px; color: #bbb; }
     .keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; text-align: left; font-size: 14px; color: #ddd; }
+    body:not(.dev) .dev-only { display: none; }
     kbd { background: #2b2b2b; border: 1px solid #555; border-bottom-width: 3px; border-radius: 5px; padding: 1px 7px; font-family: inherit; font-size: 12px; color: #fff; }
     .start { margin-top: 20px; display: inline-block; background: #ecc828; color: #111; font-weight: 700; padding: 10px 22px; border-radius: 8px; }
+    .credit { margin-top: 14px; font-size: 12px; color: #999; }
+    .credit b { color: #ecc828; font-weight: 600; }
+    #byline { position: fixed; right: 12px; bottom: 10px; color: rgba(255,255,255,.6); font-size: 12px; text-shadow: 0 1px 2px #000; pointer-events: none; z-index: 5; }
+    #byline b { color: #ecc828; font-weight: 600; }
     #crosshair { position: fixed; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: rgba(255,255,255,.8); box-shadow: 0 0 2px #000; pointer-events: none; z-index: 5; }
     #zone { position: fixed; top: 22px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 20px; font-weight: 600; letter-spacing: 1px;
       padding: 8px 18px; background: rgba(0,0,0,.45); border-left: 4px solid #ecc828; border-radius: 4px; opacity: 0; transition: opacity .6s; pointer-events: none; z-index: 5; }
     #zone.show { opacity: 1; }
     #hud { position: fixed; left: 12px; bottom: 10px; color: rgba(255,255,255,.75); font-size: 12px; text-shadow: 0 1px 2px #000; pointer-events: none; z-index: 5; }
   </style>
-  <script type="module" crossorigin src="./assets/index-fnniBKgt.js"></script>
+  <script type="module" crossorigin src="./assets/index-CJOrPyYa.js"></script>
 </head>
 <body>
   <div id="overlay">
@@ -38,17 +43,20 @@
         <span><kbd>Shift</kbd></span><span>Run</span>
         <span><kbd>Space</kbd></span><span>Jump</span>
         <span><kbd>F</kbd></span><span>Open / close a door you're standing next to</span>
-        <span><kbd>C</kbd></span><span>Add a suggestion where the dot points (or open a pin)</span>
-        <span><kbd>X</kbd> <kbd>X</kbd></span><span>Mark an area: press on two floor corners</span>
-        <span><kbd>L</kbd></span><span>List of suggestions</span>
+        <span class="dev-only"><kbd>C</kbd></span><span class="dev-only">Add a suggestion where the dot points (or open a pin)</span>
+        <span class="dev-only"><kbd>X</kbd> <kbd>X</kbd></span><span class="dev-only">Mark an area: press on two floor corners</span>
+        <span class="dev-only"><kbd>L</kbd></span><span class="dev-only">List of suggestions</span>
+        <span><kbd>P</kbd></span><span><label id="devsw" style="cursor:pointer"><input type="checkbox" id="devbox"> Dev mode (suggestions)</label></span>
         <span><kbd>Q</kbd></span><span>Toggle high / low quality</span>
         <span><kbd>Esc</kbd></span><span>Release mouse</span>
       </div>
       <div class="start">Click to explore</div>
+      <div class="credit">Developed by <b>Yatin</b></div>
     </div>
   </div>
   <div id="crosshair"></div>
   <div id="zone"></div>
   <div id="hud"></div>
+  <div id="byline">Developed by <b>Yatin</b></div>
 </body>
 </html>
