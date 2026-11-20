@@ -21,6 +21,18 @@
     .m-controls { width: 300px; padding: 20px 24px; border-radius: 18px; background: rgba(20,20,24,.55); border: 1px solid rgba(255,255,255,.12);
       box-shadow: -4px -4px 0 -1px #ecc828, 0 20px 50px rgba(0,0,0,.5); cursor: default; }
     .m-controls h2 { margin: 0 0 12px; padding-bottom: 10px; font-size: 18px; color: #ecc828; border-bottom: 1px solid rgba(255,255,255,.1); }
+    /* controls panel is hidden by default; the Controls button in the menu toggles it */
+    .m-controls { display: none; }
+    #overlay.show-controls .m-main { display: none; }
+    #overlay.show-controls .m-controls { display: block; width: min(460px, 92vw); max-height: 92vh; overflow: auto; padding: 26px 30px; }
+    #overlay.show-controls .m-controls h2 { font-size: 24px; }
+    #overlay.show-controls .keys { font-size: 16px; gap: 12px 24px; }
+    #ctrlback { display: none; margin-top: 20px; padding: 10px 22px; border-radius: 12px; cursor: pointer; font: 800 15px system-ui, sans-serif; color: #111;
+      background: linear-gradient(180deg, #ffd52e, #e9b800); border: 1.5px solid #ffe36b; }
+    #overlay.show-controls #ctrlback { display: inline-block; }
+    #ctrlbtn { margin-top: 12px; padding: 7px 16px; border-radius: 10px; cursor: pointer; background: rgba(30,30,34,.6); border: 1.5px solid rgba(255,255,255,.25);
+      color: #fff; font: 700 13px system-ui, sans-serif; }
+    #ctrlbtn:hover, #overlay.show-controls #ctrlbtn { border-color: #ecc828; color: #ecc828; }
     .keys { display: grid; grid-template-columns: auto 1fr; gap: 9px 18px; align-items: center; font-size: 14px; color: #ddd; }
     .keys > span:nth-child(odd) { white-space: nowrap; }
     /* right: title + mode buttons */
@@ -54,7 +66,6 @@
     /* small / landscape-phone screens: drop the controls panel, shrink the title */
     @media (max-width: 860px), (max-height: 560px) {
       #overlay { gap: 0; }
-      .m-controls { display: none; }
       .m-main { width: min(420px, 92vw); }
       .m-main h1 { font-size: 36px; }
       .m-sub { font-size: 14px; margin-top: 4px; padding-bottom: 0; }
@@ -72,8 +83,44 @@
       padding: 8px 18px; background: rgba(0,0,0,.45); border-left: 4px solid #ecc828; border-radius: 4px; opacity: 0; transition: opacity .6s; pointer-events: none; z-index: 5; }
     #zone.show { opacity: 1; }
     #hud { position: fixed; left: 12px; bottom: 10px; color: rgba(255,255,255,.75); font-size: 12px; text-shadow: 0 1px 2px #000; pointer-events: none; z-index: 5; }
+    /* ---- GTA-style text menu (src/menu.js): plain text lines, arrow keys / hover change the colour ---- */
+    #overlay { cursor: default; }
+    #menu { margin-top: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; width: 380px; max-width: 92vw; }
+    #menu .mi-title { font: 700 13px system-ui, sans-serif; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 10px; }
+    #menu .mi { position: relative; padding: 5px 26px; font: 800 34px system-ui, sans-serif; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,.55); cursor: pointer; user-select: none; -webkit-user-select: none; transition: color .12s, transform .12s, text-shadow .12s; }
+    #menu .mi.sel { color: #ecc828; transform: scale(1.06); text-shadow: 0 0 22px rgba(236,200,40,.45); }
+    #menu .mi.sel::before { content: '\25B6'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 16px; }
+    #menu .mi.sel::after { content: '\25C0'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 16px; }
+    #menu .mi-hint { margin: 14px 0 0; height: 40px; overflow: hidden; font: 500 14px system-ui, sans-serif; color: #ddd; max-width: 340px; }
+    #menu .mi-foot { margin: 6px 0 0; min-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 350px; font: 500 13px system-ui, sans-serif; color: rgba(255,255,255,.65); }
+    #menu .mi-foot b { color: #7ee08f; }
+    #menu .mi-keys { margin: 16px 0 0; font: 500 12px system-ui, sans-serif; color: rgba(255,255,255,.4); letter-spacing: .5px; }
+    #menu .m-controls { display: block; width: min(440px, 88vw); margin: 0 0 6px 0; max-height: 60vh; overflow: auto; }
+    @media (max-width: 860px), (max-height: 560px) {
+      #menu { margin-top: 12px; }
+      #menu .mi { font-size: 24px; padding: 3px 22px; }
+      #menu .mi-keys { display: none; }
+    }
+    /* ---- HUD chips: one glassy dark style shared by every in-game widget ---- */
+    .chip { display: flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 14px; color: #fff; font: 600 13px system-ui, -apple-system, sans-serif;
+      background: rgba(14,14,18,.62); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 4px 18px rgba(0,0,0,.35);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .chip kbd { min-width: 12px; padding: 1px 6px; font-size: 11px; }
+    #zone { top: 16px; padding: 8px 18px; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border-left: 0; border-radius: 14px;
+      background: rgba(14,14,18,.62); border: 1px solid rgba(255,255,255,.14); border-bottom: 2px solid #ecc828; box-shadow: 0 4px 18px rgba(0,0,0,.35);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transform: translate(-50%, -12px); transition: opacity .45s, transform .45s; }
+    #zone.show { transform: translate(-50%, 0); }
+    #hud { left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 10px; font-size: 11px; color: rgba(255,255,255,.6); text-shadow: none;
+      background: rgba(14,14,18,.45); border: 1px solid rgba(255,255,255,.08); }
+    #hud:empty { display: none; }
+    #byline { right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 10px; font-size: 11px; text-shadow: none; background: rgba(14,14,18,.45); border: 1px solid rgba(255,255,255,.08); }
+    #prompt { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); z-index: 6; pointer-events: none; font-size: 14px; letter-spacing: .5px;
+      border-color: rgba(236,200,40,.55); }
+    #prompt:empty { display: none; }
+    #crosshair { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; background: rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(0,0,0,.45); }
   </style>
-  <script type="module" crossorigin src="./assets/index-aM-dpWRz.js"></script>
+  <script type="module" crossorigin src="./assets/index-BjX2H928.js"></script>
 </head>
 <body>
   <div id="overlay">
@@ -90,7 +137,7 @@
         <span class="dev-only"><kbd>C</kbd></span><span class="dev-only">Add suggestion</span>
         <span class="dev-only"><kbd>X</kbd> <kbd>X</kbd></span><span class="dev-only">Mark an area</span>
         <span class="dev-only"><kbd>L</kbd></span><span class="dev-only">Suggestions list</span>
-        <span><kbd>P</kbd></span><span><label id="devsw"><input type="checkbox" id="devbox"> Dev mode</label></span>
+        <span><kbd>P</kbd></span><span>Dev mode on / off</span>
         <span><kbd>Q</kbd></span><span>High / low quality</span>
         <span><kbd>Esc</kbd></span><span>Menu</span>
       </div>
@@ -99,14 +146,14 @@
       <div class="m-logo">&#9670;</div>
       <h1><span>pixbit</span> office</h1>
       <div class="m-sub">Walk around the office in 3D</div>
-      <div class="modes"></div>
-      <div class="m-hint">Pick a mode, or click anywhere to <b>play</b></div>
+      <div id="menu"></div>
       <div class="credit">Developed by <b>Yatin</b></div>
     </div>
   </div>
   <div id="crosshair"></div>
   <div id="zone"></div>
+  <div id="prompt" class="chip"></div>
   <div id="hud"></div>
-  <div id="byline">Developed by <b>Yatin</b></div>
+  <div id="byline">Developed by <b>Yatin</b></div>
 </body>
 </html>
