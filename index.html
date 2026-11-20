@@ -15,6 +15,7 @@
     }
     #overlay.hidden { display: none; }
     body:not(.dev) .dev-only { display: none; }
+    body:not(.dev-build) .dev-build-only { display: none; }
     kbd { display: inline-block; min-width: 14px; text-align: center; background: linear-gradient(#3a3a3e, #26262a); border: 1px solid #5c5c62; border-bottom-width: 3px;
       border-radius: 6px; padding: 2px 7px; font: 700 12px system-ui, sans-serif; color: #fff; }
     /* left: controls panel */
@@ -118,9 +119,13 @@
     #prompt { position: fixed; left: 50%; bottom: 74px; transform: translateX(-50%); z-index: 6; pointer-events: none; font-size: 14px; letter-spacing: .5px;
       border-color: rgba(236,200,40,.55); }
     #prompt:empty { display: none; }
+    /* fighting (src/combat.js): red pain flash on hit, black screen while knocked out */
+    #pain { position: fixed; inset: 0; z-index: 8; pointer-events: none; opacity: 0;
+      background: radial-gradient(ellipse at center, rgba(200,0,0,0) 35%, rgba(200,0,0,.45) 75%, rgba(150,0,0,.85) 100%); box-shadow: inset 0 0 90px 30px rgba(190,0,0,.55); }
+    #blackout { position: fixed; inset: 0; z-index: 9; pointer-events: none; opacity: 0; background: #000; }
     #crosshair { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; background: rgba(255,255,255,.9); box-shadow: 0 0 0 1px rgba(0,0,0,.45); }
   </style>
-  <script type="module" crossorigin src="./assets/index-CQYhYEnr.js"></script>
+  <script type="module" crossorigin src="./assets/index-Do3f-8lr.js"></script>
 </head>
 <body>
   <div id="overlay">
@@ -132,13 +137,14 @@
         <span><kbd>Shift</kbd></span><span>Run</span>
         <span><kbd>Space</kbd></span><span>Jump</span>
         <span><kbd>F</kbd></span><span>Open / Interact</span>
+        <span><kbd>Click</kbd></span><span>Punch the player in front of you (Open World)</span>
         <span><kbd>E</kbd></span><span>Pool table: play · aim A D · hold Space shoot · hold R re-rack</span>
         <span><kbd>V</kbd></span><span>Talk / mute (Open World)</span>
         <span><kbd>T</kbd></span><span>Push to talk / always on</span>
         <span class="dev-only"><kbd>C</kbd></span><span class="dev-only">Add suggestion</span>
         <span class="dev-only"><kbd>X</kbd> <kbd>X</kbd></span><span class="dev-only">Mark an area</span>
         <span class="dev-only"><kbd>L</kbd></span><span class="dev-only">Suggestions list</span>
-        <span><kbd>P</kbd></span><span>Dev mode on / off</span>
+        <span class="dev-build-only"><kbd>P</kbd></span><span class="dev-build-only">Dev mode on / off</span>
         <span><kbd>Q</kbd></span><span>High / low quality</span>
         <span><kbd>Esc</kbd></span><span>Menu</span>
       </div>
