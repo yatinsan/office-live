@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pixbee · Dashboard</title>
+<style>
+  :root{color-scheme:dark}
+  *{box-sizing:border-box}
+  body{margin:0;background:#141414;color:#eee;font:14px/1.45 system-ui,-apple-system,sans-serif}
+  a{color:#ecc828}
+  .wrap{max-width:980px;margin:0 auto;padding:18px 16px 60px}
+  h1{margin:0 0 2px;font-size:22px}
+  .sub{color:#999;margin-bottom:16px}
+  .cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .card{flex:1;min-width:130px;background:#1d1d1d;border:1px solid #2c2c2c;border-left:3px solid #ecc828;padding:10px 12px}
+  .card b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+  .card span{color:#999;font-size:12px}
+  .players{background:#1d1d1d;border:1px solid #2c2c2c;margin-bottom:14px}
+  .players div{display:flex;align-items:center;gap:10px;padding:7px 12px;border-bottom:1px solid #262626}
+  .players div:last-child{border:0}
+  .players .nm{flex:1;font-weight:600}.players .v{color:#999;font-size:12px}.players .t{color:#ecc828;font-variant-numeric:tabular-nums}
+  .tools{display:flex;align-items:center;gap:10px;margin-bottom:8px;color:#ccc;font-size:13px}
+  .tools .sp{flex:1}
+  .tools label{display:flex;gap:6px;align-items:center;cursor:pointer}
+  button,.btn{background:#2a2a2a;color:#eee;border:1px solid #444;padding:5px 11px;cursor:pointer;font:inherit;text-decoration:none;display:inline-block}
+  button:hover,.btn:hover{background:#3a3a3a}
+  button:disabled{opacity:.4;cursor:default}
+  .danger{border-color:#7a2d2d;color:#ff8a8a}.danger:hover{background:#4a1f1f}
+  .row{display:flex;gap:16px;background:#1d1d1d;border:1px solid #2c2c2c;padding:12px;margin-bottom:10px;align-items:stretch}
+  .sel{flex:none;align-self:center;width:17px;height:17px;accent-color:#ecc828;cursor:pointer}
+  .shot{flex:none;width:260px;height:146px;background:#0c0c0c;border:1px solid #2c2c2c;align-self:center;position:relative;overflow:hidden}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .shot .none{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;color:#777;font-size:12px}
+  .shot .none[hidden],.shot img[hidden]{display:none}
+  .map{flex:none;width:168px;height:238px;background:#101010;border:1px solid #2c2c2c}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:9px}
+  .top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .dot{width:13px;height:13px;border-radius:50%;flex:none}
+  .name{font-weight:700;font-size:17px}.when{color:#999;font-size:13px}
+  .stay{color:#ecc828}
+  .scrub{display:flex;align-items:center;gap:10px}
+  .scrub input{flex:1;accent-color:#ecc828;cursor:pointer}
+  .scrub .tt{font-variant-numeric:tabular-nums;color:#ccc;min-width:92px;text-align:right;white-space:nowrap}
+  .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .empty{color:#999;padding:30px 0;text-align:center}
+  .err{background:#3a1f1f;border:1px solid #7a2d2d;padding:10px 12px;margin-bottom:12px}
+  @media(max-width:700px){.row{flex-wrap:wrap}.shot{width:100%;height:auto;aspect-ratio:16/9}.map{width:100%;height:auto;aspect-ratio:210/297;max-width:260px}}
+</style>
+  <script type="module" crossorigin src="../assets/dashboard-_XRYrodx.js"></script>
+  <link rel="modulepreload" crossorigin href="../assets/recorder-CaUcO1ub.js">
+</head>
+<body>
+<div class="wrap">
+  <h1>Pixbee · Dashboard</h1>
+  <div class="sub">Open World visits: who came, for how long, and where they walked.</div>
+  <div id="err" class="err" hidden></div>
+  <div class="cards" id="cards"></div>
+  <div class="players" id="players" hidden></div>
+  <div class="tools">
+    <label><input type="checkbox" id="all"> Select all</label>
+    <span class="sp"></span>
+    <button id="delsel" class="danger" disabled>Delete selected</button>
+    <button id="refresh">Refresh</button>
+  </div>
+  <div id="list"><div class="empty">Loading…</div></div>
+</div>
+</body>
+</html>
